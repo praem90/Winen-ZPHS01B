@@ -1,8 +1,8 @@
 {
-  "name": "SD_MHZ19B",
+  "name": "ZPHS01B",
   "version":"1.0",
-  "keywords": "arduino, MHZ19B, sensor, gas, co2",
-  "description": "MH-Z19B NDIR infrared gas module is a common type, small size sensor, using non-dispersive infrared (NDIR) principle to detect the existence of CO2 in the air, with good selectivity, non-oxygen dependent and long life. Built-in temperature compensation; and it has UART output and PWM output.  This compact library features access to all module features though an abstracted class and methods to manage the module implemented in user-level functionality. The library does not work with PWM module signal. Communicates with the module by Hardware or Software UART.",
+  "keywords": "arduino, ZPHS01B, sensor, gas, co2",
+  "description": "ZPHS01B NDIR infrared gas module is a common type, small size sensor, using non-dispersive infrared (NDIR) principle to detect the existence of CO2 in the air, with good selectivity, non-oxygen dependent and long life. Built-in temperature compensation; and it has UART output and PWM output.  This compact library features access to all module features though an abstracted class and methods to manage the module implemented in user-level functionality. The library does not work with PWM module signal. Communicates with the module by Hardware or Software UART.",
    "authors": {
     "name": "ShaggyDog",
     "email": "ShaggyDog18@gmail.com",
