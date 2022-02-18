@@ -73,7 +73,7 @@ class ZPHS01B {
 
         bool read(void);
         uint16_t getPM1(void);
-        /* uint16_t getPM2(void);
+        uint16_t getPM2(void);
         uint16_t getPM10(void);
         uint16_t getCO2(void);
         uint16_t getVOC(void);
@@ -82,7 +82,7 @@ class ZPHS01B {
         uint16_t getCH2O(void);
         uint16_t getCO(void);
         uint16_t getO3(void);
-        uint16_t getNO2(void); */
+        uint16_t getNO2(void);
 
 
         /*
@@ -159,7 +159,7 @@ class ZPHS01B {
     private:
         Stream& _serial;
 
-#define SIZEOF_FRAME 26
+#define SIZEOF_FRAME 19
 
         struct MHZ19Bstruct_t {  // 9 bytes -  in Initiative Upload mode
             uint8_t  header[2];

@@ -85,7 +85,7 @@ uint16_t ZPHS01B::getPM1(void) {
   return _unionFrame.MHZ19B.pm1[0] * 256 + _unionFrame.MHZ19B.pm1[1];
 }
 
-/* uint16_t ZPHS01B::getPM2(void) {
+uint16_t ZPHS01B::getPM2(void) {
   return _unionFrame.MHZ19B.pm2[0] * 256 + _unionFrame.MHZ19B.pm2[1];
 }
 
@@ -98,11 +98,11 @@ uint16_t ZPHS01B::getVOC(void) {
 }
 
 uint16_t ZPHS01B::getTemp(void) {
-  return _unionFrame.MHZ19B.temperature[0] * 256 + _unionFrame.MHZ19B.temperature[1] - 500;
+  return ((_unionFrame.MHZ19B.temperature[0] * 256 + _unionFrame.MHZ19B.temperature[1]) - 500) * 0.1;
 }
 
 uint16_t ZPHS01B::getHumidity(void) {
-  return _unionFrame.MHZ19B.humidity[0] * 256 + _unionFrame.MHZ19B.temperature[1];
+  return _unionFrame.MHZ19B.humidity[0] * 256 + _unionFrame.MHZ19B.humidity[1];
 }
 
 uint16_t ZPHS01B::getCH2O(void) {
@@ -118,8 +118,8 @@ uint16_t ZPHS01B::getO3(void) {
 }
 
 uint16_t ZPHS01B::getNO2(void) {
-  return (_unionFrame.MHZ19B.no2[0] * 256 + _unionFrame.MHZ19B.no2[1]) * 0.001; */
-// }
+  return (_unionFrame.MHZ19B.no2[0] * 256 + _unionFrame.MHZ19B.no2[1]) * 0.001;
+}
 
 
 //----------------------------
@@ -129,28 +129,22 @@ bool ZPHS01B::_readData(void) {
   delay(20);
   // expect data header to fly in
   while( (_serial.peek() != 0xFF) && _serial.available() ) {
-    _serial.read();  // read untill we get the data header 0xff
+    Serial.println(_serial.read());  // read untill we get the data header 0xff
   }
 
-  #ifdef DEBUG
     Serial.print("available to read: "); Serial.println( _serial.available() );
     //Serial.print(("Sizeof frame struct:"); Serial.println( sizeof(MHZ19frameStruct_t) ); // debug only
-  #endif
 
   if( _serial.available() < SIZEOF_FRAME ) {  //overall/at least 9 bytes should be available
-    #ifdef DEBUG
 	   Serial.println( "Err:Insufficiend buffer length" );
-    #endif
     return false;
   }
 
   // read the entire buffer
   _serial.readBytes( _unionFrame.buffer, SIZEOF_FRAME );
 
-  #ifdef DEBUG
     Serial.print("MH-Z19 Header:"); Serial.print( _unionFrame.MHZ19B.header[0], HEX );
     Serial.print( ":" ); Serial.println( _unionFrame.MHZ19B.header[1], HEX );
-  #endif
 
   // re-sort the buffer: swap high and low bytes since they are not in the "machine" order
   {
